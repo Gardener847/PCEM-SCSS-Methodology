@@ -63,8 +63,8 @@ For a detailed explanation on why I decided to not improve upon other CSS method
 
 # File Structure
 
- scss/
-	+-- _main.scss		        - where everything is “imported”
+ scss
+ 	+-- main.scss		        - where everything is “imported”
 	+-- base/		        - this is where browser defaults are overridden
 	+-- _layout.scss		- vertical, horizontal, table grids, or none
 	+-- abstracts/
