@@ -18,7 +18,7 @@ ul.nav {}
 }
 ```
 
-Absolutely no IDs and !important directives for styling. To further understand the reasons for these, go to the following link: [https://cssguidelin.es/] (https://cssguidelin.es/) and go to the “CSS Selectors” and “Specificity” sections.
+Absolutely no IDs and !important directives for styling. To further understand the reasons for these, go to the following link: https://cssguidelin.es/ and go to the “CSS Selectors” and “Specificity” sections.
 
 # Naming Convention (PCEM: page component/container <element/content> modifier)
 
@@ -296,7 +296,7 @@ An overly simplified template file can look like the following:
 	margin: $margin;
 	color: $color;
 
-@content;
+	@content;
 }
 
 **Inside file1 for a page/component					Inside file2 for a page/component**
@@ -425,6 +425,7 @@ margin-right: 	-10px;
 ```
 
 # Coding Standard Example
+The following is a simple example of how to use the standard. You can also experiment more on them using https://www.sassmeister.com/.
 // In template file
 ```css
 %form {
