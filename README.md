@@ -64,7 +64,6 @@ For a detailed explanation on why I decided to not improve upon other CSS method
 # File Structure
 
  scss/
- 	.
 	+-- _main.scss		        - where everything is “imported”
 	+-- base/		        - this is where browser defaults are overridden
 	+-- _layout.scss		- vertical, horizontal, table grids, or none
@@ -456,7 +455,7 @@ margin-right: 	-10px;
 
 ```css
 @mixin custom-form ($display, $font-weight, $text-align, 
-$white-space, $vertical-align, $user-select,
+		$white-space, $vertical-align, $user-select,
                 $border, $outline, $cursor, $background-image) {
                
   display: $display;
@@ -485,9 +484,10 @@ $white-space, $vertical-align, $user-select,
 
 ```css
 @mixin form-custom ($display: inline-block, $font-weight: 400, 
-$text-align: center, $white-space: nowrap, $vertical-align: middle, $user-select: none,
-$border: 1px solid transparent, $outline: 0, $cursor: pointer,$background-image: none, $page: "none", $component: "none",
-                 	$element: "none", $modifier: "none") {
+		$text-align: center, $white-space: nowrap, $vertical-align: middle, 
+		$user-select: none, $border: 1px solid transparent, 
+		$outline: 0, $cursor: pointer,$background-image: none, 
+		$page: "none", $component: "none", $element: "none", $modifier: "none") {
                     
   @if ( $page == "none" ) {
     @warn "You're trying to create a class without a page name!";
