@@ -158,11 +158,12 @@ $theme: $theme1 !default;
 Generic classes, such as .form-…, .btn-…, or even .table-…, are high-level classes within their own files. They will serve as static templates. Static templates are optimally used through extensions in Sass, as opposed to using mixins, since incorrect use of mixins can introduce bloated code. Use placeholders when extending static templates, so the static classes themselves aren’t included. If a custom component, or “code flow”, becomes commonly used, abstract it using mixins, extensions, and functions:
 
 **Extensions with placeholders**
-**SCSS								                CSS**
+
+**SCSS								            CSS**
 ```css
 %text-blue {							            .article, .title {
-	color: blue;							            color: blue;
-}								                      }
+	color: blue;							    	color: blue;
+}								            }
 
 .article {
 	@extend %text-blue;
@@ -174,11 +175,12 @@ Generic classes, such as .form-…, .btn-…, or even .table-…, are high-level
 ```
 
 **Extensions without placeholders**
-**SCSS								                CSS**
+
+**SCSS								            CSS**
 ```css
 .text-blue {							            .text-blue, .article {
-	color: blue;							            color: blue;
-}								                      }
+	color: blue;							     	color: blue;
+}								            }
 
 .article {
 	@extend .text-blue;
@@ -186,15 +188,16 @@ Generic classes, such as .form-…, .btn-…, or even .table-…, are high-level
 ```
 
 **Mixins**
-**Sass								                CSS**
+
+**Sass								        CSS**
 ```css
 @mixin text-blue {						        .article {
-	color: blue;							            color: blue;
-}								                      }
+	color: blue;								color: blue;
+}								        }
 
-.article {							              .title {
+.article {							        .title {
 	@include text-blue;						        color: blue;
-}								                      }
+}								        }
 
 .title {
 	@include text-blue;
@@ -203,18 +206,18 @@ Generic classes, such as .form-…, .btn-…, or even .table-…, are high-level
 
 If a page, or component, needs a customized template, create a template mixin, instead:
 
-**SCSS									                                        CSS**
+**SCSS									CSS**
 ```css
-@mixin border-radius($border-radius: 5px, $color: blue) {		    .article {
-	border-radius: $border-radius;					                        border-radius: 5px;
-	color: $color;								                                  color: red;
-	@content							                                        }
+@mixin border-radius($border-radius: 5px, $color: blue) {		.article {
+	border-radius: $border-radius;						border-radius: 5px;
+	color: $color;								color: red;
+	@content							}
 }
-									                                              .title {
-.article {									                                      border-radius: 10px;
-	@include border-radius($color: red);					                  color: blue;
-}										                                              font-size: 10px;
-									                                              }
+									.title {
+.article {									border-radius: 10px;
+	@include border-radius($color: red);					color: blue;
+}										font-size: 10px;
+									}
 .title {
 	@include border-radius($border-radius: 10px) {
 		font-size: 10px;
@@ -224,13 +227,13 @@ If a page, or component, needs a customized template, create a template mixin, i
 
 When defining mixins, make sure to always include @content directives at the end of the mixin declaration, since this can be used to include additional properties to the overridden template. When using mixins with additional contents, ensure that there isn’t already a similar predefined property, since this can cause repetitions:
 
-**SCSS									                                        CSS**
+**SCSS									CSS**
 ```css
-.title {									                                      .title {
-	@include border-radius($border-radius: 10px) {			            border-radius: 10px;
-		color: red;							                                      color: blue;
-  }									                                              color: red;
-}									                                              }
+.title {								.title {
+	@include border-radius($border-radius: 10px) {				border-radius: 10px;
+		color: red;							color: blue;
+  }										color: red;
+}									}
 ```
 
 An overly simplified template file can look like the following:
@@ -252,68 +255,68 @@ An overly simplified template file can look like the following:
 }
 ```css
 
-**Inside file1 for a page/component				                      Inside file2 for a page/component**
-.Homepage__info-request_btn--default {			                    .CTA__btn--success {
-	@extend %btn;						                                        @include btn($color: green){
-}										                                                font-size: 20px;
-									                                                }
-								                                                }
+**Inside file1 for a page/component					Inside file2 for a page/component**
+.Homepage__info-request_btn--default {					.CTA__btn--success {
+	@extend %btn;								@include btn($color: green){
+}											font-size: 20px;
+										}
+									}
 ```
 # Syntax Standards:
 **Parenthesis**
 Although it’s optional to use parenthesis when using conditional statements, for the sake of consistency from JavaScript’s syntax and clarity, please use of parenthesis, as shown in the following:
-**Don’t do this						                                      Do this instead**
+**Don’t do this								Do this instead**
 ```css
-@if $padding == “none” {				                                @if ($padding == “none” {
-	// something						                                        //something
-}							                                                  }
-@else if $padding != “something” {			                        @else if ($padding != “something”) {
-	// something						                                        //something
-}							                                                  }
-@else {						                                              @else {
-	//something						                                          //something
-}							                                                  }
+@if $padding == “none” {						@if ($padding == “none” {
+	// something								//something
+}									}
+@else if $padding != “something” {					@else if ($padding != “something”) {
+	// something								//something
+}									}
+@else {									@else {
+	//something								//something
+}									}
 ```
 **Quotations**
 When using mixins and functions, although it’s optional to use quotations (either single or double) when trying to pass strings, please use either single or double quotations for clarity: 
-**Don’t do this						                                      Do this instead**
+**Don’t do this								Do this instead**
 ```css
-@include some-mixin($border: none) {		                        @include some-mixin($border: “none) {
-	// something						                                        // something
-}							                                                  }
+@include some-mixin($border: none) {					@include some-mixin($border: “none) {
+	// something								// something
+}									}
 ```
 
 **Commas**
 When passing arguments to either mixins or functions, it’s optional to use commas as delimiters per succeeding argument. Again, for clarity and for reducing the chances of introducing unintended errors and bugs, please use commas:
-**Don’t do this						                                      Do this instead**
+**Don’t do this								Do this instead**
 ```css
-@include some-mixin (“none” none 0); 		                        @include some-mixin (“none”, “none”, 0);
+@include some-mixin (“none” none 0);					@include some-mixin (“none”, “none”, 0);
 ```
 
 # Defining Variables
 
 Due to the chances of defining an arbitrary number of variables for an arbitrary number of uses, for the sake of maximizing code reuse and maintaining for the possibility of UI themes, use the default directive (**!default**) coupled with descriptive color names:
-**Don’t do this						                                      Do this instead**
+**Don’t do this								Do this instead**
 ```css
-$colorWhite: //someHex				                                  $white-background: //someHex !default;
+$colorWhite: //someHex							$white-background: //someHex !default;
 ```
 
 The directive simply means that unless the current variable was already defined, use the indicated variable value:
-**SCSS							                                           CSS**
+**SCSS									CSS**
 ```css
 $white: #fff !default;
 
-.btn {							                                          .btn {
-	text: $white;						                                      text: #fff;
-}							                                                }
+.btn {									.btn {
+	text: $white;								text: #fff;
+}									}
 
 // override default
 $white: #f0f2f7;
 $white: #fff !default;
 
-.btn {							                                          .btn {
-	text: $white;						                                      text: #f0f2f7;
-}							                                               }
+.btn {									.btn {
+	text: $white;								text: #f0f2f7;
+}									}
 ```
 
 # Alignment and Grouping
