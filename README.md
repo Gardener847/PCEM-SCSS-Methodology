@@ -62,7 +62,7 @@ Homepage__advanced-search_filter-1—small
 For a detailed explanation on why I decided to not improve upon other CSS methodologies, read MethodsProsCons.docx
 
 # File Structure
-
+```
  scss
  	+-- main.scss		        - where everything is “imported”
 	+-- base/		        - this is where browser defaults are overridden
@@ -101,7 +101,7 @@ For a detailed explanation on why I decided to not improve upon other CSS method
 	|	+-- _homepage.scss      - if page class contains numerous components, separate blocks with comments
 	|	    …
 	|	+-- _forum.scss
-
+```
 **Note** Starting from the top, the architecture also shows the @import order for the root _main.scss.
 
 Themes can be dynamically set as shown in the following:
