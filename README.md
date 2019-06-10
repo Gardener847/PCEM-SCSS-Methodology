@@ -282,6 +282,7 @@ When defining mixins, make sure to always include @content directives at the end
 ```
 
 An overly simplified template file can look like the following:
+
 **Inside a button template file**
 ```css
 %btn {
@@ -298,7 +299,6 @@ An overly simplified template file can look like the following:
 
 @content;
 }
-```css
 
 **Inside file1 for a page/component					Inside file2 for a page/component**
 .Homepage__info-request_btn--default {					.CTA__btn--success {
@@ -310,6 +310,7 @@ An overly simplified template file can look like the following:
 # Syntax Standards:
 **Parenthesis**
 Although it’s optional to use parenthesis when using conditional statements, for the sake of consistency from JavaScript’s syntax and clarity, please use of parenthesis, as shown in the following:
+
 **Don’t do this**						
 ```css
 @if $padding == “none” {						
@@ -322,7 +323,9 @@ Although it’s optional to use parenthesis when using conditional statements, f
 	//something								
 }									
 ```
+
 **Do this instead**
+
 ```css
 @if ($padding == “none” {
 	// something
@@ -337,12 +340,14 @@ Although it’s optional to use parenthesis when using conditional statements, f
 
 **Quotations**
 When using mixins and functions, although it’s optional to use quotations (either single or double) when trying to pass strings, please use either single or double quotations for clarity: 
+
 **Don’t do this**								
 ```css
 @include some-mixin($border: none) {					
 	// something								
 }									
 ```
+
 **Do this instead**
 ```css
 @include some-mixin($border: “none) {
@@ -352,10 +357,12 @@ When using mixins and functions, although it’s optional to use quotations (eit
 
 **Commas**
 When passing arguments to either mixins or functions, it’s optional to use commas as delimiters per succeeding argument. Again, for clarity and for reducing the chances of introducing unintended errors and bugs, please use commas:
+
 **Don’t do this**							
 ```css
 @include some-mixin (“none” none 0);				
 ```
+
 **Do this instead**
 ```css
 @include some-mixin (“none”, “none”, 0);
@@ -364,10 +371,12 @@ When passing arguments to either mixins or functions, it’s optional to use com
 # Defining Variables
 
 Due to the chances of defining an arbitrary number of variables for an arbitrary number of uses, for the sake of maximizing code reuse and maintaining for the possibility of UI themes, use the default directive (**!default**) coupled with descriptive color names:
+
 **Don’t do this**								
 ```css
 $colorWhite: //someHex							
 ```
+
 **Do this instead**
 ```css
 $white-background: //someHex !default;
