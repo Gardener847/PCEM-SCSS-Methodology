@@ -65,8 +65,9 @@ For a detailed explanation on why I decided to not improve upon other CSS method
 ```
 - scss/
  	| - _main.scss		        - where everything is “imported”
-	| - base/		        - this is where browser defaults are overridden
-	| - _layout.scss		- vertical, horizontal, table grids, or none
+	| - vendors/
+	|	| - fonts/
+	|	| - icons/
 	| - abstracts/
 	|	| - _main.scss
     	|	| - _themes.scss        - can be dynamically set using !default
@@ -80,9 +81,8 @@ For a detailed explanation on why I decided to not improve upon other CSS method
 	|	|	| - _colors.scss
 	|	|	    …
 	|	|	| - _fonts.scss
-	| - vendors/
-	|	| - fonts/
-	|	| - icons/
+	| - base/		        - this is where browser defaults are overridden
+	| - _layout.scss		- vertical, horizontal, table grids, or none
 	| - components/	          - contains generic (extensions) and dynamic (mixins) components
 	|	| - _main.scss
 	|	| - _btn.scss
