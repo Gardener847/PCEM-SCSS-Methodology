@@ -20,7 +20,7 @@ ul.nav {}
 
 Absolutely no IDs and !important directives for styling. To further understand the reasons for these, go to the following link: https://cssguidelin.es/ and go to the “CSS Selectors” and “Specificity” sections.
 
-# Naming Convention (PCEM: page__<component/container>_<element/content>--<modifier>)
+# Naming Convention (PCEM: page <component/container> <element/content> <modifier>)
 
 ```css
 Page{__component}{_element}{--modifier}
