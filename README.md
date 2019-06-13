@@ -425,6 +425,7 @@ margin-right: 	-10px;
 
 # Coding Standard Example
 The following is a simple example of how to use the standard. You can also experiment more on them using https://www.sassmeister.com/.
+
 // In template file
 ```css
 %form {
