@@ -70,7 +70,6 @@ For a detailed explanation on why I decided to not improve upon other CSS method
 	|	|_- icons/
 	| - abstracts/
 	|	| - _main.scss
-    	|	| - _themes.scss        - can be dynamically set using !default
 	|	| - functions/
 	|	|	| - _main.scss
 	|	|	| - _numFuncs.scss
@@ -78,9 +77,9 @@ For a detailed explanation on why I decided to not improve upon other CSS method
 	|	|	|_- _colorFuncs.scss
 	|	| - variables/
 	|		| - _main.scss
-	|		| - _colors.scss
+	|		| - _colorNThemeVariables.scss		- dynamic theming using !default
 	|		    …
-	|		|_- _fonts.scss
+	|		|_- _fontVariables.scss
 	| - base/		        - this is where browser defaults are overridden
 	| - _layout.scss		- vertical, horizontal, table grids, or none
 	| - components/	          - contains generic (extensions) and dynamic (mixins) components
