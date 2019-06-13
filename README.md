@@ -34,7 +34,7 @@ Page{__component}{_element}{--modifier}
 Modifier can refer to: (1) state, (2) color, (3) sizes, (4) theme, (5) layout
 Examples of layout can be: vertical-grid, horizontal-grid, or table grid
 
-**NOTE** An element can only be present if component is also present.
+**NOTE:** An element can only be present if component is also present.
 
 ## Reasons for the naming convention:
 
@@ -57,14 +57,14 @@ Homepage__advanced-search_filter-1—small
 1) Greater learning curve compared to other CSS methodologies and naming conventions, since properly defining and using mixins and extensions, as will be shown later, might get too abstracted.
 2) Rules can get very restrictive.
 
-**NOTE**: Since variable naming is solely intended for developers, don’t worry about having too verbose names. Saving a few extra bytes should be handled by CSS minifiers, not by developers.
+**NOTE:** Since variable naming is solely intended for developers, don’t worry about having too verbose names. Saving a few extra bytes should be handled by CSS minifiers, not by developers.
 
 For a detailed explanation on why I decided to not improve upon other CSS methodologies, read MethodsProsCons.docx
 
 # File Structure
 ```
 - scss/
- 	| - _main.scss		        - where everything is “imported”
+ 	| - main.scss		        - where everything is “imported”
 	| - vendors/
 	|	| - fonts/
 	|	|_- icons/
@@ -101,7 +101,7 @@ For a detailed explanation on why I decided to not improve upon other CSS method
 		    …
 		|_- _forum.scss
 ```
-**Note** Starting from the top, the architecture also shows the @import order for the root _main.scss.
+**Note:** Starting from the top, the architecture also shows the @import order for the root main.scss. Also notice how all scss files are partial files, except for main.scss. Partial files allows us to breakdown a file into many smaller files, aka partials, so, when scss is getting compiled into css, all the partials would be combined into one file, which significantly improves performance.
 
 Themes can be dynamically set as shown in the following:
 // in _themes.scss
@@ -149,7 +149,7 @@ $theme: $theme1 !default;
 .theme2 {	@include choose-theme(“theme2”);		}
 ```
 
-**NOTE**: The overrides must come before the default variables, so, when we dynamically use JavaScript to changes classes from theme1 to theme2, $color1..3 would point to the new values. Also, the default values wouldn’t be overridden until an element’s class is switched to another theme. Additionally, the theme class should reside in the uppermost parent dom node.
+**NOTE:**: The overrides must come before the default variables, so, when we dynamically use JavaScript to changes classes from theme1 to theme2, $color1..3 would point to the new values. Also, the default values wouldn’t be overridden until an element’s class is switched to another theme. Additionally, the theme class should reside in the uppermost parent dom node.
 
 # Pitfalls to Avoid
 
