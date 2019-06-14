@@ -441,7 +441,7 @@ Attempt to align common and related identical strings in declaration and group r
 # Coding Standard Example
 The following is a simple example of how to use the standard. You can also experiment more on them using https://www.sassmeister.com/.
 
-// In template file
+**In template file**
 ```css
 %form {
   display: inline-block;
@@ -467,12 +467,16 @@ The following is a simple example of how to use the standard. You can also exper
 }
 ```
 
-// In Implementation file
-
+**In Implementation file**
+Since Sass currently doesn’t support different function return types, there will be a degree of repetition. This implementation file is where all the individual values are set.
 ```css
 @mixin form-implementation ($display, $font-weight, $text-align, 
 				$white-space, $vertical-align, $user-select,
-				$border, $outline, $cursor, $background-image) {
+				$border, $outline, $cursor, $background-image,
+				// children definers
+				$isFocus, $isNot, $isNotActive,
+				// passed children properties
+				$parentList, $focusList, $notList, $notActiveList) {
                
   display: $display;
   font-weight: $font-weight;
@@ -481,22 +485,55 @@ The following is a simple example of how to use the standard. You can also exper
   vertical-align: $vertical-align;
   border: $border;
 
-  &:focus {
-    outline: $outline;
+  @if (length($parentList) > 0) {
+    @each $key, $name in $parentlist {
+      #{$key}: $name;
+    }
+  }
+  
+  @if ($isFocus) {
+    &:focus {
+      outline: $outline;
+      
+      @if (length($focusList) > 0) {
+      	@each $key, $name in $focusList {
+	  #{$key}: $name;
+	}
+      }
+    }
   }
 
-  &:not(:disabled):not(.disabled) {
-    cursor: $cursor;
+  @if ($isNot) {
+    &:not(:disabled):not(.disabled) {
+      cursor: $cursor;
+      
+      @if (length($notList) > 0) {
+      	@each $key, $name in $notList {
+	  #{$key}: $name;
+	}
+      }
+    }
   }
 
-  &:not(:disabled):not(.disabled):active,
-  &:not(:disabled):not(.disabled).active {
-    background-image: $background-image;
+  @if ($isNotActive) {
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active {
+      background-image: $background-image;
+      
+      @if (length($notActiveList) > 0) {
+        @each $key, $name in $notActiveList {
+	  #{$key}: $name;
+	}
+      }
+    }
   }
 }
 ```
 
-// In Interface file. Notice how some of the default variable values are using global variables
+**In Interface file**
+Notice how some of the default variable values are using global variables.
+$emptyMap refers to a global empty map, and is used as a placeholder, like the following: $emptyMap: ();
+Note how the interface file is analogous to the concept of “default constructors” in object oriented programming.
 
 ```css
 @mixin form-interface ($display: $display1-size, 	$font-weight: $font-weight-normal, 
@@ -504,6 +541,10 @@ The following is a simple example of how to use the standard. You can also exper
 			$vertical-align: middle, 	$user-select: none, 
 			$border: 1px solid transparent, $outline: 0, 
 			$cursor: pointer,		$background-image: none, 
+			// children definers
+			$isFocus: true, 		$isNot: true, 
+			$isNotActive: true,
+			// name generator parameters
 			$page: "none", 			$component: "none", 
 			$element: "none", 		$modifier: "none") {
                     
@@ -514,60 +555,66 @@ The following is a simple example of how to use the standard. You can also exper
     .#{$page} {
       @include custom-form ($display, $font-weight, $text-align,
                   $white-space, $vertical-align, $user-select,
-                  $border, $outline, $cursor, $background-image);
-      @content;
+                  $border, $outline, $cursor, $background-image,
+		  $parentList, $focusList, $notList, $notActiveList);
     }
   }
   @else if ( ($component == "none") and ($modifier != "none") ) {
     .#{$page}--#{$modifier} {
       @include custom-form ($display, $font-weight, $text-align,
                   $white-space, $vertical-align, $user-select,
-                  $border, $outline, $cursor, $background-image);
-      @content;
+                  $border, $outline, $cursor, $background-image,
+		  $parentList, $focusList, $notList, $notActiveList);
     }
   }
   @else if ( ($component != "none") and ($element == "none") and ($modifier == "none") ) {
     .#{$page}__#{$component} {
       @include custom-form ($display, $font-weight, $text-align,
                   $white-space, $vertical-align, $user-select,
-                  $border, $outline, $cursor, $background-image);
-      @content;
+                  $border, $outline, $cursor, $background-image,
+		  $parentList, $focusList, $notList, $notActiveList);
     }
   }
   @else if ( ($component != "none") and ($element == "none") and ($modifier != "none") ) {
     .#{$page}__#{$component}--#{$modifier} {
       @include custom-form ($display, $font-weight, $text-align,
                   $white-space, $vertical-align, $user-select,
-                  $border, $outline, $cursor, $background-image);
-      @content;
+                  $border, $outline, $cursor, $background-image,
+		  $parentList, $focusList, $notList, $notActiveList);
     }
   }
   @else if ( ($component != "none") and ($element != "none") and ($modifier == "none") ) {
     .#{$page}__#{$component}_#{$element} {
       @include custom-form ($display, $font-weight, $text-align,
                   $white-space, $vertical-align, $user-select,
-                  $border, $outline, $cursor, $background-image);
-      @content;
+                  $border, $outline, $cursor, $background-image,
+		  $parentList, $focusList, $notList, $notActiveList);
     }
   }
   @else if ( ($component != "none") and ($element != "none") and ($modifier != "none") ) {
     .#{$page}__#{$component}_#{$element}--#{$modifier} {
       @include custom-form ($display, $font-weight, $text-align,
                   $white-space, $vertical-align, $user-select,
-                  $border, $outline, $cursor, $background-image);
-      @content;
+                  $border, $outline, $cursor, $background-image,
+		  $parentList, $focusList, $notList, $notActiveList);
     }
   }
 }
 ```
 
-// In page file
+**In page file**
+Note how the variable “Homepage__formMap” uses “Homepage” as a specifier that this variable is located in the “page” folder and to also prevent variable naming conflicts. With the current setup, every passed argument for a mixin, via includes, is analogous to “Setters” in Java.
 ```css
-@include form-interface($font-weight: 500, $page: "Homepage", $component: "form") {
-  font-size: 3em;
-};
+$Homepage__formMap: (
+  "color": blue,
+  "font-weight": 400
+);
 
-// In generated CSS
+@include form-interface($font-weight: 500, $focusList: $Homepage__formMap, $isNot: false, $page: "Homepage", $component: "form");
+```
+
+**In generated CSS**
+```css
 .Homepage__form {
   display: inline-block;
   font-weight: 500;
