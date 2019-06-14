@@ -468,6 +468,7 @@ The following is a simple example of how to use the standard. You can also exper
 ```
 
 **In Implementation file**
+
 Since Sass currently doesn’t support different function return types, there will be a degree of repetition. This implementation file is where all the individual values are set.
 ```css
 @mixin form-implementation ($display, $font-weight, $text-align, 
@@ -531,6 +532,7 @@ Since Sass currently doesn’t support different function return types, there wi
 ```
 
 **In Interface file**
+
 Notice how some of the default variable values are using global variables.
 $emptyMap refers to a global empty map, and is used as a placeholder, like the following: $emptyMap: ();
 Note how the interface file is analogous to the concept of “default constructors” in object oriented programming.
@@ -603,6 +605,7 @@ Note how the interface file is analogous to the concept of “default constructo
 ```
 
 **In page file**
+
 Note how the variable “Homepage__formMap” uses “Homepage” as a specifier that this variable is located in the “page” folder and to also prevent variable naming conflicts. With the current setup, every passed argument for a mixin, via includes, is analogous to “Setters” in Java.
 ```css
 $Homepage__formMap: (
