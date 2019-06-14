@@ -31,6 +31,7 @@ Page{__component}{_element}{--modifier}
 .Page__component_element--modifier {}
 ```
 
+A component is a group of at least 2 elements
 Modifier can refer to: (1) state, (2) color, (3) sizes, (4) theme, (5) layout
 Examples of layout can be: vertical-grid, horizontal-grid, or table grid
 
@@ -442,6 +443,8 @@ Attempt to align common and related identical strings in declaration and group r
 The following is a simple example of how to use the standard. You can also experiment more on them using https://www.sassmeister.com/.
 
 **In template file**
+
+Since this template will be widely used across several pages, if you want to include a specific element within this template for a specific use case, include that element definition within the implementation file, and set the default definer value to false in the interface file, since we wouldn't want the other classes inheriting the specific element.
 ```css
 %form {
   display: inline-block;
@@ -465,6 +468,17 @@ The following is a simple example of how to use the standard. You can also exper
     background-image: none;
   }
 }
+
+%form__input {
+  font-weight: 350;
+  text-align: left;
+  padding: 9px 0;
+}
+
+%form__input_text {
+  font-size: 1.5em;
+}
+
 ```
 
 **In Implementation file**
@@ -529,6 +543,29 @@ Since Sass currently doesn’t support different function return types, there wi
     }
   }
 }
+
+@mixin form__input-implementation ($font-weight, $text-align, $padding, $parentList) {
+  font-weight: $font-weight;
+  text-align: $text-align;
+  padding: $padding;
+  
+  @if (length($parentList) > 0) {
+    @each $key, $name in $parentList {
+      #{$key}: $name;
+    }
+  }
+}
+
+@mixin form__input-text ($font-size, $parentList) {
+  font-size: $font-size;
+  
+  @if (length(parentlist) > 0) {
+    @each $key, $name in $parentList {
+      #{$key}: $name;
+    }
+  }
+}
+
 ```
 
 **In Interface file**
@@ -545,7 +582,9 @@ Note how the interface file is analogous to the concept of “default constructo
 			$cursor: pointer,		$background-image: none, 
 			// children definers
 			$isFocus: true, 		$isNot: true, 
-			$isNotActive: true,
+			$isNotActive: true,		$isSpecificUseCase,
+			// additional property lists
+			$parentList, $focusList, $notList, $notActiveList, $specificUseCaseList,
 			// name generator parameters
 			$page: "none", 			$component: "none", 
 			$element: "none", 		$modifier: "none") {
@@ -557,6 +596,7 @@ Note how the interface file is analogous to the concept of “default constructo
     .#{$page} {
       @include custom-form ($display, $font-weight, $text-align,
                   $white-space, $vertical-align, $user-select,
+		  $isFocus, $isNot, $isNotActive, $isSpecificUseCase,
                   $border, $outline, $cursor, $background-image,
 		  $parentList, $focusList, $notList, $notActiveList);
     }
@@ -565,6 +605,7 @@ Note how the interface file is analogous to the concept of “default constructo
     .#{$page}--#{$modifier} {
       @include custom-form ($display, $font-weight, $text-align,
                   $white-space, $vertical-align, $user-select,
+		  $isFocus, $isNot, $isNotActive, $isSpecificUseCase,
                   $border, $outline, $cursor, $background-image,
 		  $parentList, $focusList, $notList, $notActiveList);
     }
@@ -573,6 +614,7 @@ Note how the interface file is analogous to the concept of “default constructo
     .#{$page}__#{$component} {
       @include custom-form ($display, $font-weight, $text-align,
                   $white-space, $vertical-align, $user-select,
+		  $isFocus, $isNot, $isNotActive, $isSpecificUseCase,
                   $border, $outline, $cursor, $background-image,
 		  $parentList, $focusList, $notList, $notActiveList);
     }
@@ -581,6 +623,7 @@ Note how the interface file is analogous to the concept of “default constructo
     .#{$page}__#{$component}--#{$modifier} {
       @include custom-form ($display, $font-weight, $text-align,
                   $white-space, $vertical-align, $user-select,
+		  $isFocus, $isNot, $isNotActive, $isSpecificUseCase,
                   $border, $outline, $cursor, $background-image,
 		  $parentList, $focusList, $notList, $notActiveList);
     }
@@ -589,6 +632,7 @@ Note how the interface file is analogous to the concept of “default constructo
     .#{$page}__#{$component}_#{$element} {
       @include custom-form ($display, $font-weight, $text-align,
                   $white-space, $vertical-align, $user-select,
+		  $isFocus, $isNot, $isNotActive, $isSpecificUseCase,
                   $border, $outline, $cursor, $background-image,
 		  $parentList, $focusList, $notList, $notActiveList);
     }
@@ -597,6 +641,7 @@ Note how the interface file is analogous to the concept of “default constructo
     .#{$page}__#{$component}_#{$element}--#{$modifier} {
       @include custom-form ($display, $font-weight, $text-align,
                   $white-space, $vertical-align, $user-select,
+		  $isFocus, $isNot, $isNotActive, $isSpecificUseCase,
                   $border, $outline, $cursor, $background-image,
 		  $parentList, $focusList, $notList, $notActiveList);
     }
