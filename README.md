@@ -325,13 +325,28 @@ Although it’s optional to use parenthesis when using conditional statements, f
 **Do this instead**
 
 ```css
-@if ($padding == “none” {
+@if ($padding == “none”) {
 	// something
 }
 @else if ($padding != “something”) {
 	// something
 }
 @else {
+	// something
+}
+```
+
+This is, however, not true for loop statements, which include @for, @each, and @while:
+**Right**
+```css
+@for $i from 1 to 4 {
+	// something
+}
+```
+
+**Wrong**
+```css
+@for ($1 from 1 to 4) {
 	// something
 }
 ```
