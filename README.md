@@ -352,7 +352,7 @@ This is, however, not true for loop statements, which include @for, @each, and @
 ```
 
 **Quotations**
-When using mixins and functions, although it’s optional to use quotations (either single or double) when trying to pass strings, please use either single or double quotations for clarity, unless the argument is a number. The same principles should be used when declaring parameters: 
+When using mixins and functions, although it’s optional to use quotations (either single or double) when trying to pass strings, please use either single or double quotations for clarity, unless the argument is a number, or a boolean. The same principles should be used when declaring parameters: 
 
 **Don’t do this**								
 ```css
