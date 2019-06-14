@@ -455,9 +455,9 @@ The following is a simple example of how to use the standard. You can also exper
 // In Implementation file
 
 ```css
-@mixin custom-form ($display, $font-weight, $text-align, 
-		$white-space, $vertical-align, $user-select,
-                $border, $outline, $cursor, $background-image) {
+@mixin form-implementation ($display, $font-weight, $text-align, 
+				$white-space, $vertical-align, $user-select,
+				$border, $outline, $cursor, $background-image) {
                
   display: $display;
   font-weight: $font-weight;
@@ -484,13 +484,13 @@ The following is a simple example of how to use the standard. You can also exper
 // In Interface file. Notice how some of the default variable values are using global variables
 
 ```css
-@mixin form-custom ($display: $display1-size, 	$font-weight: $font-weight-normal, 
-		$text-align: center, 		$white-space: nowrap, 
-		$vertical-align: middle, 	$user-select: none, 
-		$border: 1px solid transparent, $outline: 0, 
-		$cursor: pointer,		$background-image: none, 
-		$page: "none", 			$component: "none", 
-		$element: "none", 		$modifier: "none") {
+@mixin form-interface ($display: $display1-size, 	$font-weight: $font-weight-normal, 
+			$text-align: center, 		$white-space: nowrap, 
+			$vertical-align: middle, 	$user-select: none, 
+			$border: 1px solid transparent, $outline: 0, 
+			$cursor: pointer,		$background-image: none, 
+			$page: "none", 			$component: "none", 
+			$element: "none", 		$modifier: "none") {
                     
   @if ( $page == "none" ) {
     @warn "You're trying to create a class without a page name!";
@@ -548,7 +548,7 @@ The following is a simple example of how to use the standard. You can also exper
 
 // In page file
 ```css
-@include form-custom($font-weight: 500, $page: "Homepage", $component: "form") {
+@include form-interface($font-weight: 500, $page: "Homepage", $component: "form") {
   font-size: 3em;
 };
 
