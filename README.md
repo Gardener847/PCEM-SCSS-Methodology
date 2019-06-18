@@ -474,95 +474,101 @@ Since this template will be widely used across several pages, if you want to inc
   text-align: left;
   padding: 9px 0;
 }
-
-%form__input_text {
-  font-size: 1.5em;
-}
-
 ```
 
 **In Implementation file**
 
-Since Sass currently doesn’t support different function return types, there will be a degree of repetition. This implementation file is where all the individual values are set.
+This implementation file is where all the individual values are set. Notice how the default child setters are used, if the user decides to not indicate the “use__” property value.
 ```css
-@mixin form-implementation ($display, $font-weight, $text-align, 
-				$white-space, $vertical-align, $user-select,
-				$border, $outline, $cursor, $background-image,
-				// children definers
-				$isFocus, $isNot, $isNotActive,
-				// passed children properties
-				$parentList, $focusList, $notList, $notActiveList) {
-               
-  display: $display;
-  font-weight: $font-weight;
-  text-align: $text-align;
-  white-space: $white-space;
-  vertical-align: $vertical-align;
-  border: $border;
+@mixin form-implementation ($argList) {
 
-  @if (length($parentList) > 0) {
-    @each $key, $name in $parentlist {
-      #{$key}: $name;
+  @if (type-of($argList) == "map") {
+    
+    @if (map-has-key($argList, "useParent") and map-get($argList, "useParent") == false) {
     }
-  }
-  
-  @if ($isFocus) {
-    &:focus {
-      outline: $outline;
+    @else {
+      display: inline-block;
+      font-weight: 300;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      user-select: none;
+      border: 1px solid transparent;
       
-      @if (length($focusList) > 0) {
-      	@each $key, $name in $focusList {
-	  #{$key}: $name;
-	}
+      @if (map-has-key($argList, "parent") and length(map-get($argList, "parent")) ) {
+        @each $key, $value in map-get($argList, "parent") {
+          #{$key}: $value;
+        }
+      }
+    }
+    
+    @if (map-has-key($argList, "useFocus") and map-get($argList, "useFocus") == false) {
+    }
+    @else {
+      &:focus {
+        outline: 0;
+	
+	@if (map-has-key($argList, "focus") and length(map-get($argList, "focus")) ) {
+          @each $key, $value in map-get($argList, "focus") {
+            #{$key}: $value;
+          }
+        }
+      }
+    }
+    
+    @if (map-has-key($argList, "useNot") and map-get($argList, "useNot") == false) {
+    }
+    @else {
+      &:not():disabled) :not(.disabled) {
+        cursor: pointer;
+	
+	@if (map-has-key($argList, "not") and length(map-get($argList, "not")) ) {
+          @each $key, $value in map-get($argList, "not") {
+            #{$key}: $value;
+          }
+        }
+      }
+    }
+    
+    @if (map-has-key($argList, "useNotActive") and map-get($argList, "useNotActive") == false) {
+    }
+    @else {
+      &:not(:disabled):not(.disabled):active,
+      &:not(:disabled):not(.disabled).active {
+        background-image: none;
+	
+	@if (map-has-key($argList, "notActive") and length(map-get($argList, "notActive")) ) {
+          @each $key, $value in map-get($argList, "notActive") {
+            #{$key}: $value;
+          }
+        }
       }
     }
   }
-
-  @if ($isNot) {
-    &:not(:disabled):not(.disabled) {
-      cursor: $cursor;
-      
-      @if (length($notList) > 0) {
-      	@each $key, $name in $notList {
-	  #{$key}: $name;
-	}
-      }
-    }
-  }
-
-  @if ($isNotActive) {
-    &:not(:disabled):not(.disabled):active,
-    &:not(:disabled):not(.disabled).active {
-      background-image: $background-image;
-      
-      @if (length($notActiveList) > 0) {
-        @each $key, $name in $notActiveList {
-	  #{$key}: $name;
-	}
-      }
-    }
+  @else {
+    @warn “You’re calling a mixin without passing an argList, maybe you meant to use a template instead?”
   }
 }
 
-@mixin form__input-implementation ($font-weight, $text-align, $padding, $parentList) {
-  font-weight: $font-weight;
-  text-align: $text-align;
-  padding: $padding;
-  
-  @if (length($parentList) > 0) {
-    @each $key, $name in $parentList {
-      #{$key}: $name;
+@mixin form__input-implementation ($argList) {
+  @if (type-of($argList) == "map") {
+    
+    @if (map-has-key($argList, "useParent") and map-get($argList, "useParent") == false ) {
+    }
+    @else {
+      font-weight: 350;
+      text-align: left;
+      padding: 9px 0;
+      
+      @if (map-has-key($argList, "parent") and length(map-get($argList, "parent")) ) {
+          @each $key, $value in map-get($argList, "parent") {
+            #{$key}: $value;
+          }
+      }
     }
   }
-}
-
-@mixin form__input-text ($font-size, $parentList) {
-  font-size: $font-size;
-  
-  @if (length(parentlist) > 0) {
-    @each $key, $name in $parentList {
-      #{$key}: $name;
-    }
+  @else {
+    @warn “You’re calling a mixin without passing an argList, maybe you meant to use a template instead?”
   }
 }
 
@@ -575,16 +581,7 @@ $emptyMap refers to a global empty map, and is used as a placeholder, like the f
 Note how the interface file is analogous to the concept of “default constructors” in object oriented programming.
 
 ```css
-@mixin form-interface ($display: $display1-size, 	$font-weight: $font-weight-normal, 
-			$text-align: center, 		$white-space: nowrap, 
-			$vertical-align: middle, 	$user-select: none, 
-			$border: 1px solid transparent, $outline: 0, 
-			$cursor: pointer,		$background-image: none, 
-			// children definers
-			$isFocus: true, 		$isNot: true, 
-			$isNotActive: true,		$isSpecificUseCase,
-			// additional property lists
-			$parentList, $focusList, $notList, $notActiveList, $specificUseCaseList,
+@mixin form-interface ($argList: $emptyMap,
 			// name generator parameters
 			$page: "none", 			$component: "none", 
 			$element: "none", 		$modifier: "none") {
@@ -592,58 +589,17 @@ Note how the interface file is analogous to the concept of “default constructo
   @if ( $page == "none" ) {
     @warn "You're trying to create a class without a page name!";
   }
-  @else if ( ($component == "none") and ($element == "none") and ($modifier == "none") ) {
-    .#{$page} {
-      @include custom-form ($display, $font-weight, $text-align,
-                  $white-space, $vertical-align, $user-select,
-		  $isFocus, $isNot, $isNotActive, $isSpecificUseCase,
-                  $border, $outline, $cursor, $background-image,
-		  $parentList, $focusList, $notList, $notActiveList);
-    }
+  @else if ( ($component == "none") and ($element == "none") ) {
+    @warn "You need to specify a component or element class to generate";
   }
-  @else if ( ($component == "none") and ($modifier != "none") ) {
-    .#{$page}--#{$modifier} {
-      @include custom-form ($display, $font-weight, $text-align,
-                  $white-space, $vertical-align, $user-select,
-		  $isFocus, $isNot, $isNotActive, $isSpecificUseCase,
-                  $border, $outline, $cursor, $background-image,
-		  $parentList, $focusList, $notList, $notActiveList);
-    }
-  }
-  @else if ( ($component != "none") and ($element == "none") and ($modifier == "none") ) {
-    .#{$page}__#{$component} {
-      @include custom-form ($display, $font-weight, $text-align,
-                  $white-space, $vertical-align, $user-select,
-		  $isFocus, $isNot, $isNotActive, $isSpecificUseCase,
-                  $border, $outline, $cursor, $background-image,
-		  $parentList, $focusList, $notList, $notActiveList);
-    }
-  }
-  @else if ( ($component != "none") and ($element == "none") and ($modifier != "none") ) {
-    .#{$page}__#{$component}--#{$modifier} {
-      @include custom-form ($display, $font-weight, $text-align,
-                  $white-space, $vertical-align, $user-select,
-		  $isFocus, $isNot, $isNotActive, $isSpecificUseCase,
-                  $border, $outline, $cursor, $background-image,
-		  $parentList, $focusList, $notList, $notActiveList);
-    }
-  }
-  @else if ( ($component != "none") and ($element != "none") and ($modifier == "none") ) {
+  @else if ( $component == "form" and $element == “input” ) {
     .#{$page}__#{$component}_#{$element} {
-      @include custom-form ($display, $font-weight, $text-align,
-                  $white-space, $vertical-align, $user-select,
-		  $isFocus, $isNot, $isNotActive, $isSpecificUseCase,
-                  $border, $outline, $cursor, $background-image,
-		  $parentList, $focusList, $notList, $notActiveList);
+      @include form_input-implementation ($argList1);
     }
   }
-  @else if ( ($component != "none") and ($element != "none") and ($modifier != "none") ) {
-    .#{$page}__#{$component}_#{$element}--#{$modifier} {
-      @include custom-form ($display, $font-weight, $text-align,
-                  $white-space, $vertical-align, $user-select,
-		  $isFocus, $isNot, $isNotActive, $isSpecificUseCase,
-                  $border, $outline, $cursor, $background-image,
-		  $parentList, $focusList, $notList, $notActiveList);
+  @else if ( $component == "form" ) {
+    .#{$page}__#{$component} {
+      @include form-implementation ($argList1);
     }
   }
 }
@@ -654,11 +610,15 @@ Note how the interface file is analogous to the concept of “default constructo
 Note how the variable “Homepage__formMap” uses “Homepage” as a specifier that this variable is located in the “page” folder and to also prevent variable naming conflicts. With the current setup, every passed argument for a mixin, via includes, is analogous to “Setters” in Java.
 ```css
 $Homepage__formMap: (
-  "color": blue,
-  "font-weight": 400
+  “focus”: (
+    “color”: blue,
+    “font-weight”: 400,
+  ),
+  “useNot”: false
 );
 
-@include form-interface($font-weight: 500, $focusList: $Homepage__formMap, $isNot: false, $page: "Homepage", $component: "form");
+@include form-interface($argList: $Homepage__formMap, $page: "Homepage", $component: "form");
+
 ```
 
 **In generated CSS**
@@ -674,10 +634,11 @@ $Homepage__formMap: (
 }
 .Homepage__form:focus {
   outline: 0;
+  // generated from “$Homepage__formMap” map
+  color: blue;
+  font-weight: 400;
 }
-.Homepage__form:not(:disabled):not(.disabled) {
-  cursor: pointer;
-}
+// notice how the classname:not is gone because “useNot” was false
 .Homepage__form:not(:disabled):not(.disabled):active, .Homepage__form:not(:disabled):not(.disabled).active {
   background-image: none;
 }
