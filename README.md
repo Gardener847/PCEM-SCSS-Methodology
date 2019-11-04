@@ -643,3 +643,19 @@ $Homepage__formMap: (
   background-image: none;
 }
 ```
+
+**Responsive Design**
+Css attributes that depend on spacing and sizing:
+background-size, border-width, border-radius, box-shadow, column-gap, column-width, flex-basis, font-size, font-weight, grid-column-gap, grid-gap, grid-row-gap, height, left, letter-spacing, line-height, margin, outline-width, padding, right, text-indent, text-shadow, top, transform-origin, width, word-spacing
+You can use this [link](https://cssreference.io/) for reference.
+
+Please use appropriate units for responsive design as indicated in this [link](https://www.w3schools.com/cssref/css_units.asp).
+rem: strictly for text sizing
+%: nested components only
+vh & vw: containers / wrappers
+
+Don't use the following units:
+em: since this is open to parent inheritance and it's current element sizing, its calculated value will change during refactoring
+vim & vmax: 
+
+NEVER USE NEGATIVE VALUES FOR UNITSs
