@@ -647,18 +647,18 @@ $Homepage__formMap: (
 **Responsive Design**
 
 CSS attributes that depend on spacing and sizing:
-background-size, border-width, border-radius, box-shadow, column-gap, column-width, flex-basis, font-size, grid-column-gap, grid-gap, grid-row-gap, height, left, letter-spacing, line-height, margin, outline-width, padding, right, text-indent, text-shadow, top, transform-origin, width, word-spacing
+background-size, border-width, border-radius, box-shadow, column-gap, column-width, flex-basis, font-size, grid-column-gap, grid-gap, grid-row-gap, height, left, letter-spacing, line-height, margin, outline-width, padding, right, text-indent, text-shadow, top, transform-origin, width, word-spacing\
 You can use this [link](https://cssreference.io/) for reference.
 
-Please use appropriate units for responsive design as indicated in this [link](https://www.w3schools.com/cssref/css_units.asp). Whenever possible, use dynamic units, else use px, unless you're working with PDFs or printed media, in which case cm, in, etc. are permissible.
-**rem:** strictly for text
-**%:** nested components only
-**vh & vw:** containers / wrappers
+Please use appropriate units for responsive design as indicated in this [link](https://www.w3schools.com/cssref/css_units.asp). Whenever possible, use dynamic units, else use px, unless you're working with PDFs or printed media, in which case cm, in, etc. are permissible.\
+**rem:** strictly for text\
+**%:** nested components only\
+**vh & vw:** containers / wrappers\
 
-**Don't use the following units:** 
-**ch:** since this sizing doesn't event depend on browser window and the default font size from root or parent
-**em:** since this is open to parent inheritance and it's current element sizing, its calculated value will change during refactoring
-**ex:** since this is dependent on current element's font size
+**Don't use the following units:**\
+**ch:** since this sizing doesn't event depend on browser window and the default font size from root or parent\
+**em:** since this is open to parent inheritance and it's current element sizing, its calculated value will change during refactoring\
+**ex:** since this is dependent on current element's font size\
 **vmin & vmax:** since these can either depend on width or height, especially when user switches from portrait to landscape, or vice versa
 
 **NEVER USE NEGATIVE VALUES FOR UNITS**
