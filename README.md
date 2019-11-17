@@ -160,6 +160,32 @@ $theme: $theme1 !default;
 
 **NOTE:**: The overrides must come before the default variables, so, when we dynamically use JavaScript to changes classes from theme1 to theme2, $color1..3 would point to the new values. Also, the default values wouldn’t be overridden until an element’s class is switched to another theme. Additionally, the theme class should reside in the uppermost parent dom node.
 
+### SCSS file structure in scale
+
+There's a good chance that when your page gets larger, for example your dashboard page, there'll be more styling within that Dashboard.scss, in which case you can modularize your scss file likes the following:
+```
+Dashboard folder
+	| - Dashboard.scss
+	| - Dashboard__comp1.scss
+	| - Dashboard__comp2.scss
+```
+
+There is also a technique to nest your imported scss like the following:\
+```css
+// for Dashboard.scss
+.Page__comp1 {
+	@import './Dashboard__comp1.scss';
+}
+
+// inside Dashboard__comp1.scss
+&__comp1.1 {}
+
+// this is similar to
+.Page__comp1 {
+	&__comp1.1 {}
+}
+```
+
 # Pitfalls to Avoid
 
 Generic classes, such as .form-…, .btn-…, or even .table-…, are high-level classes within their own files. They will serve as static templates. Static templates are optimally used through extensions in Sass, as opposed to using mixins, since incorrect use of mixins can introduce bloated code. Use placeholders when extending static templates, so the static classes themselves aren’t included. If a custom component, or “code flow”, becomes commonly used, abstract it using mixins, extensions, and functions:
