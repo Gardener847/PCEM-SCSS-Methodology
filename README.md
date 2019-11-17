@@ -170,7 +170,7 @@ Dashboard folder
 	| - Dashboard__comp2.scss
 ```
 
-There is also a technique to nest your imported scss like the following:\
+There is also a technique to nest your imported scss like the following:
 ```css
 // for Dashboard.scss
 .Page__comp1 {
