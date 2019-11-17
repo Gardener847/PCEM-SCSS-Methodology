@@ -23,17 +23,25 @@ Absolutely no IDs and !important directives for styling. To further understand t
 # Naming Convention (PCEM: page component/container element/content modifier)
 
 ```css
-Page{__component}{_element}{--modifier}
+Page{__component}{_element}{-description}{--modifier}
 .Page {}
 .Page--modifier {}
 .Page__component {}
+.Page__component-container {}	// i.e. .Landing__chart-container {}
 .Page__component--modifier {}
-.Page__component_element--modifier {}
+.Page__component_element-countries--modifier {} // i.e. .Landing__chart_input-countries--small {}
 ```
 
-A component is a group of at least 2 elements
-Modifier can refer to: (1) state, (2) color, (3) sizes, (4) theme, (5) layout
-Examples of layout can be: vertical-grid, horizontal-grid, or table grid
+A component is a group of at least 2 elements.
+Modifier can refer to: (1) state, (2) color, (3) sizes, (4) theme, (5) layout.
+Examples of layout can be: vertical-grid, horizontal-grid, or table grid.
+In case you're wondering about how the naming would look like for multiple components per page and nested components, refer to the following:
+
+```css
+.Page__component1 {}
+.Page__component2 {}
+.Page__component1__component1.1 {}
+```
 
 **NOTE:** An element can only be present if component is also present.
 
@@ -43,7 +51,7 @@ Examples of layout can be: vertical-grid, horizontal-grid, or table grid
 2) The naming convention itself avoids CSS class naming conflicts
 3) This is an improvement from the BEM naming convention, since it more clearly indicates the difference between “blocks” and “elements”, which, in this case, is separated into Page, component, and element.
 4) The naming convention provides a general idea of what the CSS class is doing on the HTML element, without having the need to indicate every CSS property, as in Atomic CSS (ACSS)
-5) The naming convention provides a sense of “scoping”, since it indicates which HTML element, or elements, the class is being applied to. This is further enforced by the how class name is named, as shown in **reason #8’s** example; doing this reduces confusion, since developers can more easily pinpoint which page, component, and element the class name would is referring to. Some may argue that overly specific naming conventions can reduce code reuse; this is, however, “fixed” by using extensions and mixins, as will be shown in the end of this file.
+5) The naming convention provides a sense of “scoping”, since it indicates which HTML element, or elements, the class is being applied to. This is further enforced by the how class name is named, as shown in **reason #8’s** example; doing this reduces confusion, since developers can more easily pinpoint which page, component, and element the class name is referring to. Some may argue that overly specific naming conventions can reduce code reuse; this is, however, “fixed” by using extensions and mixins, as will be shown in the end of this file.
 6) If used correctly, the naming convention gets rid of all **!important** directives.
 7) The naming convention allows for easier file organization, since every CSS class within the “Page” name, would be all located in one place, which also makes debugging easier.
 8) The naming convention has similar flexibility as to that of BEM. Similarly, multi-word class names are separated with a “-“ as shown in the following:
@@ -52,7 +60,7 @@ Homepage__advanced-search_filter-1—small
 
 9) The naming convention can allow for separation of concerns, in terms of limiting “structural” styling to the page, component, and element, and allowing actual styling to the modifier.
 10) The naming convention is intended for **NO CSS NESTING**, as will be shown in the end of the file.
-11) Part of the rationality behind the naming convention is to view a page as a collection of components, whether independent and nested components, which then contains granular elements. So, this naming convention combines both BEM and Atomic CSS concepts. This is also to adhere to object-oriented programming principles, which applies strict 
+11) Part of the rationality behind the naming convention is to view a page as a collection of components, whether independent and nested components, which then contains granular elements. So, this naming convention combines both BEM and Atomic CSS concepts. This is also to adhere to object-oriented programming principles, to add structure, predictability in behavior, and abstraction, which greatly reduces repetitive code.
 
 ## Cons:
 1) Greater learning curve compared to other CSS methodologies and naming conventions, since properly defining and using mixins and extensions, as will be shown later, might get too abstracted.
